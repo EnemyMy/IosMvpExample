@@ -82,7 +82,7 @@ class PhotoDetailsViewController: UIViewController {
         NSLayoutConstraint.deactivate(photo.constraints)
         photo.removeFromSuperview()
         view.addSubview(photo)
-        if OrientationHelper.isLandscape() {
+        if UIDevice.isLandcape {
             NSLayoutConstraint.activate(
                 [
                     photo.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -124,7 +124,7 @@ class PhotoDetailsViewController: UIViewController {
         view.addSubview(albumIdLabel)
         view.addSubview(albumIdText)
         
-        if OrientationHelper.isLandscape() {
+        if UIDevice.isLandcape {
             NSLayoutConstraint.activate(
                 [
                     albumIdLabel.topAnchor.constraint(equalTo: photo.topAnchor),
@@ -174,7 +174,7 @@ class PhotoDetailsViewController: UIViewController {
         view.addSubview(idLabel)
         view.addSubview(idText)
         
-        if OrientationHelper.isLandscape() {
+        if UIDevice.isLandcape {
             NSLayoutConstraint.activate(
                 [
                     idLabel.topAnchor.constraint(equalTo: albumIdLabel.bottomAnchor, constant: 20),
@@ -224,7 +224,7 @@ class PhotoDetailsViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(titleText)
         
-        if OrientationHelper.isLandscape() {
+        if UIDevice.isLandcape {
             titleText.numberOfLines = 0
             NSLayoutConstraint.activate(
                 [
@@ -276,7 +276,7 @@ class PhotoDetailsViewController: UIViewController {
         view.addSubview(urlLabel)
         view.addSubview(urlText)
         
-        if OrientationHelper.isLandscape() {
+        if UIDevice.isLandcape {
             urlText.numberOfLines = 0
             NSLayoutConstraint.activate(
                 [
