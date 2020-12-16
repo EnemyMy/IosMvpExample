@@ -102,7 +102,7 @@
 				FA434F21257FB603008A399A /* Models */,
 				FA434F41257FEDD1008A399A /* UIComponents */,
 				FA434F20257FB5F7008A399A /* Screens */,
-				FA434F1F257FB5EA008A399A /* Categories */,
+				FA434F1F257FB5EA008A399A /* Extensions */,
 				FA434F1E257FB5CA008A399A /* Resources */,
 			);
 			path = MVPFirst;
@@ -118,12 +118,12 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		FA434F1F257FB5EA008A399A /* Categories */ = {
+		FA434F1F257FB5EA008A399A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				FA434F44257FEE5D008A399A /* UITableView+DequeByType.swift */,
 			);
-			path = Categories;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		FA434F20257FB5F7008A399A /* Screens */ = {
