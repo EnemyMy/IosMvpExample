@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol NetworkingService {
+    func makeRequest(url: URL, completionHandler: @escaping (Result<Data, Error>) -> Void)
+}
+
 class ApiManager: NetworkingService {
     
     func makeRequest(url: URL, completionHandler: @escaping (Result<Data, Error>) -> Void) {
@@ -32,8 +36,4 @@ class ApiManager: NetworkingService {
             }
         }.resume()
     }
-}
-
-protocol NetworkingService {
-    func makeRequest(url: URL, completionHandler: @escaping (Result<Data, Error>) -> Void)
 }

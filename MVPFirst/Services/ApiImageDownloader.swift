@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ImageDownloader {
+    func getImage(url: URL, completionHandler: @escaping (Result<(URL, UIImage), Error>) -> Void)
+}
+
 class ApiImageDownloader: ImageDownloader {
     
     let imageCache: NSCache<NSString, UIImage> = {
@@ -35,8 +39,4 @@ class ApiImageDownloader: ImageDownloader {
             })
         }
     }
-}
-
-protocol ImageDownloader {
-    func getImage(url: URL, completionHandler: @escaping (Result<(URL, UIImage), Error>) -> Void)
 }

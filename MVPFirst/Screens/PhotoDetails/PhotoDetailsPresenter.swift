@@ -8,6 +8,14 @@
 
 import UIKit
 
+protocol PhotoDetailsViewPresenter: AnyObject {
+    var view: PhotoDetailsView? { get set }
+    init(view: PhotoDetailsView)
+    
+    func viewLoaded()
+    func getImage(url: String, completionHandler: @escaping (Result<UIImage, Error>) -> Void)
+}
+
 class PhotoDetailsPresenter {
     weak var view: PhotoDetailsView?
     var imageDownloader: ImageDownloader?
@@ -50,12 +58,4 @@ extension PhotoDetailsPresenter: PhotoDetailsViewPresenter {
     func handleFailure(action: @escaping () -> Void) {
         DispatchQueue.main.async { action() }
     }
-}
-
-protocol PhotoDetailsViewPresenter: AnyObject {
-    var view: PhotoDetailsView? { get set }
-    init(view: PhotoDetailsView)
-    
-    func viewLoaded()
-    func getImage(url: String, completionHandler: @escaping (Result<UIImage, Error>) -> Void)
 }

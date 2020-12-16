@@ -8,6 +8,16 @@
 
 import UIKit
 
+protocol PhotosListViewPresenter: AnyObject {
+    var view: PhotosListView? { get set }
+    init(view: PhotosListView)
+    
+    func viewLoaded()
+    func didSelectItem(at indexPath: IndexPath)
+    
+    func getImage(url: String, completionHandler: @escaping (Result<(URL, UIImage), Error>) -> Void)
+}
+
 class PhotosListPresenter {
     var photosDao: PhotosDao?
     var imageDownloader: ImageDownloader?
@@ -81,14 +91,4 @@ extension PhotosListPresenter: PhotosListViewPresenter {
             self.view?.showAlert(title: title, message: message)
         }
     }
-}
-
-protocol PhotosListViewPresenter: AnyObject {
-    var view: PhotosListView? { get set }
-    init(view: PhotosListView)
-    
-    func viewLoaded()
-    func didSelectItem(at indexPath: IndexPath)
-    
-    func getImage(url: String, completionHandler: @escaping (Result<(URL, UIImage), Error>) -> Void)
 }

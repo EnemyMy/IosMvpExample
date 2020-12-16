@@ -8,6 +8,18 @@
 
 import UIKit
 
+protocol PhotosListView: AnyObject {
+    var presenter: PhotosListViewPresenter? { get set }
+    var items: [PhotoListItem] { get set }
+    
+    func startLoading()
+    func endLoading()
+    func selectRow(at indexPath: IndexPath)
+    func deselectRow(at indexPath: IndexPath)
+    func showAlert(title: String, message: String?)
+    func openDetails(details: PhotoDetails)
+}
+
 class PhotosListViewController: UITableViewController {
     
     var presenter: PhotosListViewPresenter?
@@ -112,16 +124,3 @@ extension PhotosListViewController {
         presenter?.didSelectItem(at: indexPath)
     }
 }
-
-protocol PhotosListView: AnyObject {
-    var presenter: PhotosListViewPresenter? { get set }
-    var items: [PhotoListItem] { get set }
-    
-    func startLoading()
-    func endLoading()
-    func selectRow(at indexPath: IndexPath)
-    func deselectRow(at indexPath: IndexPath)
-    func showAlert(title: String, message: String?)
-    func openDetails(details: PhotoDetails)
-}
-
