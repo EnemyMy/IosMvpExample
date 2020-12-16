@@ -15,5 +15,5 @@ protocol PhotosListViewPresenter: AnyObject {
     func viewLoaded()
     func didSelectItem(at indexPath: IndexPath)
     
-    func getImage(url: String, onComplete: @escaping (URL, UIImage) -> Void, onFailure: @escaping (Error) -> Void)
+    func getImage(url: String, completionHandler: @escaping (Result<(URL, UIImage), Error>) -> Void)
 }

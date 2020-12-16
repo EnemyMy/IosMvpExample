@@ -9,5 +9,5 @@
 import UIKit
 
 protocol ImageDownloader {
-    func getImage(url: URL, onComplete: @escaping (URL, UIImage) -> Void, onFailure: @escaping (Error) -> Void)
+    func getImage(url: URL, completionHandler: @escaping (Result<(URL, UIImage), Error>) -> Void)
 }

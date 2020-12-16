@@ -16,16 +16,20 @@ class PhotosDao {
         self.apiManager = apiManager
     }
     
-    func getPhotosData(onComplete: @escaping ([Photo]) -> Void, onFailure: @escaping (Error) -> Void) {
-        apiManager.makeRequest(url: Constants.photosDataURL, onComplete: { data in
-            if let photo = ResponseDecoder<Photo>.decode(data: data) {
-                onComplete([photo])
-            } else if let photos = ResponseDecoder<[Photo]>.decode(data: data) {
-                onComplete(photos)
-            } else {
-                onFailure(CodableError.decodingError)
+    func getPhotosData(completionHandler: @escaping (Result<[Photo], Error>) -> Void) {
+        apiManager.makeRequest(url: Constants.photosDataURL) { result in
+            switch result {
+            case .success(let data):
+                if let photo = ResponseDecoder<Photo>.decode(data: data) {
+                    completionHandler(.success([photo]))
+                } else if let photos = ResponseDecoder<[Photo]>.decode(data: data) {
+                    completionHandler(.success(photos))
+                } else {
+                    completionHandler(.failure(CodableError.decodingError))
+                }
+            case .failure(let error): completionHandler(.failure(error))
             }
-        }, onFailure: onFailure)
+        }
     }
 }
 

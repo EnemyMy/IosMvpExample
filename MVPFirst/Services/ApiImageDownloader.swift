@@ -16,19 +16,23 @@ class ApiImageDownloader: ImageDownloader {
         return cache
     }()
     
-    func getImage(url: URL, onComplete: @escaping (URL, UIImage) -> Void, onFailure: @escaping (Error) -> Void) {
+    func getImage(url: URL, completionHandler: @escaping (Result<(URL, UIImage), Error>) -> Void) {
         if let image = imageCache.object(forKey: url.absoluteString as NSString) {
-            onComplete(url, image)
+            completionHandler(.success((url, image)))
         } else {
             let apiManager = ApiManager()
-            apiManager.makeRequest(url: url, onComplete: { data in
-                guard let image = UIImage(data: data) else {
-                    onFailure(ImageDownloadError.wrongImageData)
-                    return
+            apiManager.makeRequest(url: url, completionHandler: { result in
+                switch result {
+                case .success(let data):
+                    guard let image = UIImage(data: data) else {
+                        completionHandler(.failure(ImageDownloadError.wrongImageData))
+                        return
+                    }
+                    self.imageCache.setObject(image, forKey: url.absoluteString as NSString)
+                    completionHandler(.success((url, image)))
+                case .failure(let error): completionHandler(.failure(error))
                 }
-                self.imageCache.setObject(image, forKey: url.absoluteString as NSString)
-                onComplete(url, image)
-            }, onFailure: onFailure)
+            })
         }
     }
 }

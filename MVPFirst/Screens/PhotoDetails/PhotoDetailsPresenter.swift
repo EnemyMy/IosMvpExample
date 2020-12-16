@@ -24,21 +24,23 @@ extension PhotoDetailsPresenter: PhotoDetailsViewPresenter {
         view?.loadImage()
     }
     
-    func getImage(url: String, onComplete: @escaping (UIImage) -> Void, onFailure: @escaping (Error) -> Void) {
+    func getImage(url: String, completionHandler: @escaping (Result<UIImage, Error>) -> Void) {
         let url = URL(string: url)!
-        imageDownloader?.getImage(url: url, onComplete: { [weak self] url, image in
-            guard let strongSelf = self else { return }
-            strongSelf.handleSuccess {
-                onComplete(image)
-                strongSelf.view?.endLoading()
+        imageDownloader?.getImage(url: url) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let error):
+                self.handleFailure {
+                    completionHandler(.failure(error))
+                    self.view?.endLoading()
+                }
+            case .success((_, let image)):
+                self.handleSuccess {
+                    completionHandler(.success(image))
+                    self.view?.endLoading()
+                }
             }
-        }, onFailure: { [weak self] error in
-            guard let strongSelf = self else { return }
-            strongSelf.handleFailure {
-                onFailure(error)
-                strongSelf.view?.endLoading()
-            }
-        })
+        }
     }
     
     func handleSuccess(action: @escaping () -> Void) {

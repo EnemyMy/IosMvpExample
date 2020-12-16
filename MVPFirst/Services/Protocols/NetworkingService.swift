@@ -9,5 +9,5 @@
 import Foundation
 
 protocol NetworkingService {
-    func makeRequest(url: URL, onComplete: @escaping (Data) -> Void, onFailure: @escaping (Error) -> Void)
+    func makeRequest(url: URL, completionHandler: @escaping (Result<Data, Error>) -> Void)
 }

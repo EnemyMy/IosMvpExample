@@ -320,12 +320,12 @@ extension PhotoDetailsViewController: PhotoDetailsView {
     
     func loadImage() {
         guard let url = photoDetails?.url else { fatalError() }
-        presenter?.getImage(url: url, onComplete: { [weak self] image in
-            guard let strongSelf = self else { return }
-            strongSelf.photo.image = image
-        }, onFailure: { [weak self] error in
-            guard let strongSelf = self else { return }
-            strongSelf.photo.image = #imageLiteral(resourceName: "noImage")
-        })
+        presenter?.getImage(url: url) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(_): self.photo.image = #imageLiteral(resourceName: "noImage")
+            case .success(let image): self.photo.image = image
+            }
+        }
     }
 }

@@ -22,18 +22,20 @@ class PhotosListPresenter {
 extension PhotosListPresenter: PhotosListViewPresenter {
     func viewLoaded() {
         view?.startLoading()
-        photosDao?.getPhotosData(onComplete: { [weak self] photos in
-            guard let strongSelf = self else { return }
-            strongSelf.handleSuccess {
-                strongSelf.photos = photos
-                strongSelf.view?.items = photos.map { PhotoListItem(photo: $0) }
-                strongSelf.view?.endLoading()
+        photosDao?.getPhotosData { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let error):
+                self.handleError(error: error)
+                self.view?.endLoading()
+            case .success(let photos):
+                self.handleSuccess {
+                    self.photos = photos
+                    self.view?.items = photos.map { PhotoListItem(photo: $0) }
+                    self.view?.endLoading()
+                }
             }
-        }, onFailure: { [weak self] error in
-            guard let strongSelf = self else { return }
-            strongSelf.handleError(error: error)
-            strongSelf.view?.endLoading()
-        })
+        }
     }
     
     func didSelectItem(at indexPath: IndexPath) {
@@ -42,14 +44,21 @@ extension PhotosListPresenter: PhotosListViewPresenter {
         view?.openDetails(details: photoDetails)
     }
     
-    func getImage(url: String, onComplete: @escaping (URL, UIImage) -> Void, onFailure: @escaping (Error) -> Void) {
+    func getImage(url: String, completionHandler: @escaping (Result<(URL, UIImage), Error>) -> Void) {
         let url = URL(string: url)!
-        imageDownloader?.getImage(url: url, onComplete: { [weak self] url, image in
-            guard let strongSelf = self else { return }
-            strongSelf.handleSuccess { onComplete(url, image) }
-        },onFailure: { error in
-            DispatchQueue.main.async { onFailure(error) }
-        })
+        imageDownloader?.getImage(url: url) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    completionHandler(.failure(error))
+                }
+            case .success((let url, let image)):
+                self.handleSuccess {
+                    completionHandler(.success((url, image)))
+                }
+            }
+        }
     }
     
     private func handleSuccess(action: @escaping () -> Void) {

@@ -13,5 +13,5 @@ protocol PhotoDetailsViewPresenter: AnyObject {
     init(view: PhotoDetailsView)
     
     func viewLoaded()
-    func getImage(url: String, onComplete: @escaping (UIImage) -> Void, onFailure: @escaping (Error) -> Void)
+    func getImage(url: String, completionHandler: @escaping (Result<UIImage, Error>) -> Void)
 }

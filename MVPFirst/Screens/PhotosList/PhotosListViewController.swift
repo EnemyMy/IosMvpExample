@@ -90,14 +90,17 @@ extension PhotosListViewController {
         let item = items[indexPath.row]
         cell.title.text = item.title
         cell.imageURL = item.thumbnailUrl
-        presenter?.getImage(url: item.thumbnailUrl, onComplete: { url, image in
-            if url.absoluteString == cell.imageURL {
-                cell.photo.image = image
+        presenter?.getImage(url: item.thumbnailUrl) { result in
+            switch result {
+            case .failure(_):
+                cell.imageURL = ""
+                cell.photo.image = #imageLiteral(resourceName: "noImage")
+            case .success((let url, let image)):
+                if url.absoluteString == cell.imageURL {
+                    cell.photo.image = image
+                }
             }
-        }, onFailure: { error in
-            cell.imageURL = ""
-            cell.photo.image = #imageLiteral(resourceName: "noImage")
-        })
+        }
         return cell
     }
 }
