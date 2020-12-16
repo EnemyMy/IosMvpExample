@@ -12,7 +12,7 @@ protocol NetworkingService {
     func makeRequest(url: URL, completionHandler: @escaping (Result<Data, Error>) -> Void)
 }
 
-class ApiManager: NetworkingService {
+final class ApiManager: NetworkingService {
     
     func makeRequest(url: URL, completionHandler: @escaping (Result<Data, Error>) -> Void) {
         URLSession.shared.dataTask(with: url) { data, response, error in

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoTableViewCell: UITableViewCell {
+final class PhotoTableViewCell: UITableViewCell {
     
     let photo = UIImageView()
     let title = UILabel()

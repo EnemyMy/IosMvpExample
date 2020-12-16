@@ -20,7 +20,7 @@ protocol PhotosListView: AnyObject {
     func openDetails(details: PhotoDetails)
 }
 
-class PhotosListViewController: UITableViewController {
+final class PhotosListViewController: UITableViewController {
     
     var presenter: PhotosListViewPresenter?
     let indicatorView = UIActivityIndicatorView(style: .large)

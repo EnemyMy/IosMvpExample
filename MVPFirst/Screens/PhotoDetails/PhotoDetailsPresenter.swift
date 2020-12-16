@@ -16,7 +16,7 @@ protocol PhotoDetailsViewPresenter: AnyObject {
     func getImage(url: String, completionHandler: @escaping (Result<UIImage, Error>) -> Void)
 }
 
-class PhotoDetailsPresenter {
+final class PhotoDetailsPresenter {
     weak var view: PhotoDetailsView?
     var imageDownloader: ImageDownloader?
     

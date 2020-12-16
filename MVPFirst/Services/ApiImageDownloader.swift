@@ -12,7 +12,7 @@ protocol ImageDownloader {
     func getImage(url: URL, completionHandler: @escaping (Result<(URL, UIImage), Error>) -> Void)
 }
 
-class ApiImageDownloader: ImageDownloader {
+final class ApiImageDownloader: ImageDownloader {
     
     let imageCache: NSCache<NSString, UIImage> = {
         let cache = NSCache<NSString, UIImage>()

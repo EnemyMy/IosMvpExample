@@ -17,7 +17,7 @@ protocol PhotoDetailsView: AnyObject {
     func loadImage()
 }
 
-class PhotoDetailsViewController: UIViewController {
+final class PhotoDetailsViewController: UIViewController {
     
     var presenter: PhotoDetailsViewPresenter?
     var photoDetails: PhotoDetails?

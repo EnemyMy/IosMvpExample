@@ -18,7 +18,7 @@ protocol PhotosListViewPresenter: AnyObject {
     func getImage(url: String, completionHandler: @escaping (Result<(URL, UIImage), Error>) -> Void)
 }
 
-class PhotosListPresenter {
+final class PhotosListPresenter {
     var photosDao: PhotosDao?
     var imageDownloader: ImageDownloader?
     weak var view: PhotosListView?

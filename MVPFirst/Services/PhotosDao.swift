@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PhotosDao {
+final class PhotosDao {
     
     let apiManager: NetworkingService
     
