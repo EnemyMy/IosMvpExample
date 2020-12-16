@@ -33,3 +33,7 @@ class ApiManager: NetworkingService {
         }.resume()
     }
 }
+
+protocol NetworkingService {
+    func makeRequest(url: URL, completionHandler: @escaping (Result<Data, Error>) -> Void)
+}

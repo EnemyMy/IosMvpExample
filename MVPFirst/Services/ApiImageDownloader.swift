@@ -36,3 +36,7 @@ class ApiImageDownloader: ImageDownloader {
         }
     }
 }
+
+protocol ImageDownloader {
+    func getImage(url: URL, completionHandler: @escaping (Result<(URL, UIImage), Error>) -> Void)
+}

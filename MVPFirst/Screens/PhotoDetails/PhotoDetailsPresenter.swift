@@ -51,3 +51,11 @@ extension PhotoDetailsPresenter: PhotoDetailsViewPresenter {
         DispatchQueue.main.async { action() }
     }
 }
+
+protocol PhotoDetailsViewPresenter: AnyObject {
+    var view: PhotoDetailsView? { get set }
+    init(view: PhotoDetailsView)
+    
+    func viewLoaded()
+    func getImage(url: String, completionHandler: @escaping (Result<UIImage, Error>) -> Void)
+}

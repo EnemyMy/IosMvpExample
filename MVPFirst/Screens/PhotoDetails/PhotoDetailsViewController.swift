@@ -329,3 +329,12 @@ extension PhotoDetailsViewController: PhotoDetailsView {
         }
     }
 }
+
+protocol PhotoDetailsView: AnyObject {
+    var presenter: PhotoDetailsViewPresenter? { get set }
+    var photoDetails: PhotoDetails? { get set }
+    
+    func startLoading()
+    func endLoading()
+    func loadImage()
+}

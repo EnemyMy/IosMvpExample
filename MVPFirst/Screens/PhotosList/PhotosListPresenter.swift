@@ -82,3 +82,13 @@ extension PhotosListPresenter: PhotosListViewPresenter {
         }
     }
 }
+
+protocol PhotosListViewPresenter: AnyObject {
+    var view: PhotosListView? { get set }
+    init(view: PhotosListView)
+    
+    func viewLoaded()
+    func didSelectItem(at indexPath: IndexPath)
+    
+    func getImage(url: String, completionHandler: @escaping (Result<(URL, UIImage), Error>) -> Void)
+}
