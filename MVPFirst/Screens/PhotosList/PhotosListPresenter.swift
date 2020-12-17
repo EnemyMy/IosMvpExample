@@ -71,11 +71,11 @@ extension PhotosListPresenter: PhotosListViewPresenter {
         }
     }
     
-    private func handleSuccess(action: @escaping () -> Void) {
+    func handleSuccess(action: @escaping () -> Void) {
         DispatchQueue.main.async { action() }
     }
     
-    private func handleError(error: Error) {
+    func handleError(error: Error) {
         let title = "Error"
         var message = ""
         switch error {
