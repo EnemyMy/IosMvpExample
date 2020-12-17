@@ -39,6 +39,16 @@
                ReferencedContainer = "container:MVPFirst.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FA2A9CF3258BC56C001DA373"
+               BuildableName = "MVPFirstUITests.xctest"
+               BlueprintName = "MVPFirstUITests"
+               ReferencedContainer = "container:MVPFirst.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

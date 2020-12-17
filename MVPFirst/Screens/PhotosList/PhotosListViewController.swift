@@ -56,6 +56,7 @@ final class PhotosListViewController: UITableViewController {
     }
     
     private func setupTableView() {
+        tableView.accessibilityIdentifier = "PhotosTable"
         tableView.rowHeight = 100
         tableView.registerCell(cell: PhotoTableViewCell.self)
     }

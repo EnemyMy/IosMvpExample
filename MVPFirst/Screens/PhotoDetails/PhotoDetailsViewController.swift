@@ -82,6 +82,7 @@ final class PhotoDetailsViewController: UIViewController {
     }
     
     private func setupPhoto() {
+        photo.accessibilityIdentifier = "Photo"
         photo.contentMode = .scaleAspectFill
         photo.clipsToBounds = true
         photo.translatesAutoresizingMaskIntoConstraints = false
